@@ -8,18 +8,16 @@ $client = new Client([
 
 $options = [
 	'json' => [
-		"title" => "Samsung Galaxy S23",
-		"brand" => "Samsung",
-		"category" => "Smartphones",
-		"description" => "All new 2023 Flagship phone of Samsung Technologies",
-		"price" => "999"
+	'title' => 'Logitech Galaxy Airpods',
+        'description' => 'Wowers',
+        'category' => 'earphones', 
+        'brand' => 'Logitech'
 	]
 ];
-$response = $client->post("products/add", $options);
+$response = $client->put("products/1", $options);
 $code = $response->getStatusCode();
 $body = $response->getBody();
 var_dump (json_decode($body))
 
-
 ?>
-<html>
+

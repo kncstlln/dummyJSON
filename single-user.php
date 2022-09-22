@@ -6,11 +6,13 @@ use GuzzleHttp\Client;
 $client = new Client([
         'base_uri' => 'https://dummyjson.com/'
 ]);
-$response = $client->get('products');
+$id=$_GET['user_id'];
+$response = $client->get('users/' . $id);
 $code = $response->getStatusCode();
 $body = $response->getBody();
 #var_dump(json_decode($body));
-$products= json_decode($body)->products;
+$user= json_decode($body);
+
 ?>
 <html>
         <head>
@@ -35,16 +37,17 @@ $products= json_decode($body)->products;
                 <!-- list group item-->
                 <li class="list-group-item">
                     <!-- Custom content-->
-                    <?php foreach($products as $product){  ?>
+    
                     <div class="media align-items-lg-center flex-column flex-lg-row p-3">
                         <div class="media-body order-2 order-lg-1">
-                        <h5 class="mt-0 font-weight-bold mb-2"><?php echo $product->id?></h5>
-                            <h5 class="mt-0 font-weight-bold mb-2"><?php echo $product->title?></h5>
-                            <h6 class="mt-0 font-weight-bold mb-2"><?php echo $product->brand?></h6>
-                            <p class="font-italic text-muted mb-0 small"><b><?php echo $product->category?></b></p>
-                            <p class="font-italic text-muted mb-0 small"><?php echo $product->description?></p>
+                        <h4 class="mt-0 font-weight-bold mb-2"><?= $user->firstName?> <?= $user->maidenName?> <?= $user->lastName?></h5>
+                            <p class="font-italic text-muted mb-0 small"><b><?= $user->age?></b></p>
+                            <p class="font-italic text-muted mb-0 small"><?= $user->gender?></p>
+                            <p class="font-italic text-muted mb-0 small"><?= $user->email?></p>
+                            <p class="font-italic text-muted mb-0 small"><?= $user->phone?></p>
+                            <p class="font-italic text-muted mb-0 small"><?= $user->bloodGroup?></p>
+                            
                             <div class="d-flex align-items-center justify-content-between mt-1">
-                                <h6 class="font-weight-bold my-2"><?php echo $product->price?></h6>
                                 <ul class="list-inline small">
                                     <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
                                     <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
@@ -53,9 +56,7 @@ $products= json_decode($body)->products;
                                     <li class="list-inline-item m-0"><i class="fa fa-star-o text-gray"></i></li>
                                 </ul>
                             </div>
-                        </div><img src=<?php echo $product->thumbnail?> alt="Generic placeholder image" width="200" class="ml-lg-5 order-1 order-lg-2">
-                    </div> <!-- End -->
-                </li> <!-- End -->
-                <?php }?>
-        </body>
-        
+                        </div><img src=<?=$user->image?> alt="Generic placeholder image" width="200" class="ml-lg-5 order-1 order-lg-2">
+                    </div>
+                </li> 
+            </body>
