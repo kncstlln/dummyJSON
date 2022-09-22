@@ -10,7 +10,7 @@ $response = $client->get('products/search');
 $code = $response->getStatusCode();
 $body = $response->getBody();
 #var_dump(json_decode($body));
-$product= json_decode($body);
+$product= json_decode($body)->products;
 
 ?>
 <html>
@@ -45,4 +45,5 @@ $product= json_decode($body);
       function myFunction() {
       document.getElementById("search");
       }
+      const myButton = document.getElementById("search");
     </script>

@@ -10,7 +10,7 @@ $response = $client->get('products/categories');
 $code = $response->getStatusCode();
 $body = $response->getBody();
 #var_dump(json_decode($body));
-$products = json_decode($body);
+$categories = json_decode($body);
 ?>
 <html>
     <head>
@@ -22,41 +22,15 @@ $products = json_decode($body);
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
         </head>
         <body>
-
-    <div id="intro" class="p-5 text-center bg-light">
-      <h1 class="mb-3 h2">Categories</h1>
-    </div>
-  </header>
-  <!--Main Navigation-->
-
-  <!--Main layout-->
-  <main class="my-5">
-    <div class="container">
-      <!--Grid row-->
-      <div class="row">
-        <!--Grid column-->
-        <div class="col-md-9 mb-4">
-          <!--Section: Content-->
-          <section>
-            <!-- Post -->
-            <div class="row">
-              <div class="col-md-4 mb-4">
-                <div class="bg-image hover-overlay shadow-1-strong rounded ripple" data-mdb-ripple-color="light">
-                  <img src="https://mdbootstrap.com/img/new/standard/nature/184.jpg" class="img-fluid" />
-                  <a href="#!">
-                    <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-                  </a>
-                </div>
-              </div>
-              <?php foreach($products as $product){  ?>
-              <div class="col-md-8 mb-4">
-                <h5><?php echo $product->category?></h5>
-                <?php echo $product->title?>
-
-                <button type="button" class="btn btn-primary">Open</button>
-              </div>
-            </div>
-          </section>
-          <?php }?>
-              </body>
+        <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="card text-center" style="width: 18rem;">
+      <div class="card-header px-3"><strong> Categories </strong></div>
+      <ul class="list-group list-group-light list-group-small">
+            <?php foreach($categories as $category){  ?>
+              <li class="list-group-item px-3"><?php echo $category?></li>
+            <?php }?>
+            </ul>
+          </div>
+        </body>
             </html>
