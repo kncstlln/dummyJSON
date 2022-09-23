@@ -55,7 +55,7 @@ $user = json_decode($body);
               <label class="form-check-label" for="form1Example3"> Remember password </label>
             </div>
 
-            <button class="btn btn-primary btn-lg btn-block" onclick="button()" type="submit">Login</button>
+            <button class="btn btn-primary btn-lg btn-block" type="submit">Login</button>
             <br>
             <br>
             </form>

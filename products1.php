@@ -6,6 +6,7 @@ use GuzzleHttp\Client;
 $client = new Client([
         'base_uri' => 'https://dummyjson.com/'
 ]);
+$search=$_GET['search'];
 $response = $client->get('products');
 $code = $response->getStatusCode();
 $body = $response->getBody();
@@ -29,13 +30,13 @@ $products= json_decode($body)->products;
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-8 mx-auto">
+        <div class="col-lg-8 mx-auto" id="product-list">
             <!-- List group-->
             <ul class="list-group shadow">
                 <!-- list group item-->
                 <li class="list-group-item">
-                    <!-- Custom content-->
                     <?php foreach($products as $product){  ?>
+                    <div class="product">
                     <div class="media align-items-lg-center flex-column flex-lg-row p-3">
                         <div class="media-body order-2 order-lg-1">
                         <h5 class="mt-0 font-weight-bold mb-2"><?php echo $product->id?></h5>
