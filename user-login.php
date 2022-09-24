@@ -5,18 +5,6 @@ use GuzzleHttp\Client;
 $client = new Client([
         'base_uri' => 'https://dummyjson.com/'
 ]);	
-$options = [
-	'json' => [
-		"username" => "atuny0",
-    "password" => "9uQFF1Lh"
-	]
-];
-$response = $client->post("auth/login", $options);
-$code = $response->getStatusCode();
-$body = $response->getBody();
-$user = json_decode($body);
-#var_dump(json_decode($body));
-
 
 
 ?>
@@ -63,7 +51,18 @@ $user = json_decode($body);
             if(isset($_POST['username']) || isset($_POST['password'])){
              $username = $_POST["username"];
              $password = $_POST["password"];
-            if ($username =='atuny0' AND $password=='9uQFF1Lh') {
+             $options = [
+              'json' => [
+                "username" => $username,
+                "password" => $password
+              ]
+            ];
+            $response = $client->post("auth/login", $options);
+            $code = $response->getStatusCode();
+            $body = $response->getBody();
+            $user = json_decode($body);
+            #var_dump(json_decode($body));
+            if ($username ==$username AND $password==$password) {
               echo '<div class="alert alert-success alert-dismissible fade show" role="alert">'."Token: ". $user->token . '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>'.'</div>';
             } else {
               echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">'."Please input valid credential" .'<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>'. '</div>';
