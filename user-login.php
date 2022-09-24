@@ -8,7 +8,7 @@ $client = new Client([
 $options = [
 	'json' => [
 		"username" => "atuny0",
-        "password" => "9uQFF1Lh"
+    "password" => "9uQFF1Lh"
 	]
 ];
 $response = $client->post("auth/login", $options);

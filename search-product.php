@@ -6,11 +6,15 @@ use GuzzleHttp\Client;
 $client = new Client([
         'base_uri' => 'https://dummyjson.com/'
 ]);
-$response = $client->get('products');
+if(isset($_POST['search_product'])){
+
+$search_product=$_POST['search_product'];
+$response = $client->get('products/search?q=' . $search_product);
 $code = $response->getStatusCode();
 $body = $response->getBody();
 #var_dump(json_decode($body));
-$products= json_decode($body)->products;
+$search_product= json_decode($body, true);
+}
 ?>
 <html>
     <head>
@@ -31,10 +35,10 @@ $products= json_decode($body)->products;
     <link href ="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
 </head>
     <body>
-          <form action="products1.php" method="get">
+          <form action="search-product.php" method="post">
           <div class="input-group justify-content-center align-items-center h-100">
           <div class="form-outline">
-            <input id="myInput" value="" name="search" type="search" id="input" class="query" />
+            <input id="myInput" value="" name="search_product" type="search" id="input" class="query" />
           </div>
             <button id="search" type="submit" class="searchBtn btn-primary">
               <i class="fas fa-search"></i>
@@ -47,17 +51,18 @@ $products= json_decode($body)->products;
             <ul class="list-group shadow">
                 <!-- list group item-->
                 <li class="list-group-item">
-                    <?php foreach($products as $product){  ?>
+                    <?php 
+                    foreach($search_product['products'] as $product){  ?>
                     <div class="product">
                     <div class="media align-items-lg-center flex-column flex-lg-row p-3">
                         <div class="media-body order-2 order-lg-1">
-                        <h5 class="mt-0 font-weight-bold mb-2"><?php echo $product->id?></h5>
-                            <h5 class="mt-0 font-weight-bold mb-2"><?php echo $product->title?></h5>
-                            <h6 class="mt-0 font-weight-bold mb-2"><?php echo $product->brand?></h6>
-                            <p class="font-italic text-muted mb-0 small"><b><?php echo $product->category?></b></p>
-                            <p class="font-italic text-muted mb-0 small"><?php echo $product->description?></p>
+                        <h5 class="mt-0 font-weight-bold mb-2"><?php echo $product['id'];?></h5>
+                            <h5 class="mt-0 font-weight-bold mb-2"><?php echo $product['title'];?></h5>
+                            <h6 class="mt-0 font-weight-bold mb-2"><?php echo $product['brand'];?></h6>
+                            <p class="font-italic text-muted mb-0 small"><b><?php echo $product['category'];?></b></p>
+                            <p class="font-italic text-muted mb-0 small"><?php echo $product['description'];?></p>
                             <div class="d-flex align-items-center justify-content-between mt-1">
-                                <h6 class="font-weight-bold my-2"><?php echo $product->price?></h6>
+                                <h6 class="font-weight-bold my-2"><?php echo $product['price'];?></h6>
                                 <ul class="list-inline small">
                                     <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
                                     <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
@@ -66,10 +71,12 @@ $products= json_decode($body)->products;
                                     <li class="list-inline-item m-0"><i class="fa fa-star-o text-gray"></i></li>
                                 </ul>
                             </div>
-                        </div><img src=<?php echo $product->thumbnail?> alt="Generic placeholder image" width="200" class="ml-lg-5 order-1 order-lg-2">
+                        </div><img src=<?php echo $product['thumbnail'];?> alt="Generic placeholder image" width="200" class="ml-lg-5 order-1 order-lg-2">
                     </div> <!-- End -->
                 </li> <!-- End -->
-                <?php }?>
+                <?php }
+                ?>
+                
         </body>
     </body>
   <script>
